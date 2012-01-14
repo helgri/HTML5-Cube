@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Cube</title>
+    <style>
+        html, body{
+            height: 100%;
+            overflow: hidden;
+        }
+        body{
+            -webkit-perspective:800px;
+            -moz-perspective:800px;
+            -ms-perspective:800px;
+            -o-perspective:800px;
+            perspective:800px;
+            background: -webkit-repeating-linear-gradient(45deg, transparent, rgba(255,255,255,.05) 350px), #333;
+            background: -moz-repeating-linear-gradient(45deg, transparent, rgba(255,255,255,.05) 350px), #333;
+            background: -ms-repeating-linear-gradient(45deg, transparent, rgba(255,255,255,.05) 350px), #333;
+            background: -o-repeating-linear-gradient(45deg, transparent, rgba(255,255,255,.05) 350px), #333;
+            background: repeating-linear-gradient(45deg, transparent, rgba(255,255,255,.05) 350px), #333;
+        }
+        #cube{
+            position: absolute;
+            top:50%;
+            left:50%;
+            width: 200px;
+            height: 200px;
+            margin: -100px 0 0 -100px;
+            background: transparent url("images/lg_html5.svg") no-repeat center center;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-animation: turnIt 12s linear infinite;
+            -moz-animation: turnIt 12s linear infinite;
+            -ms-animation: turnIt 12s linear infinite;
+            -o-animation: turnIt 12s linear infinite;
+            animation: turnIt 12s linear infinite;
+        }
+/*
+        #cube:before,
+        #cube:after{
+            position: absolute;
+            top:0;
+            left:0;
+            content: "";
+            width: 800px;
+            height: 1px;
+            background: #000;
+        }
+        #cube:before{
+            top:100px;
+            -webkit-transform: translate3d(-300px,0,0) rotateZ(90deg);
+            -moz-transform: translate3d(-300px,0,0) rotateZ(90deg);
+            -ms-transform: rotateZ(90deg);
+            -o-transform: translate3d(-300px,0,0) rotateZ(90deg);
+            transform: translate3d(-300px,0,0) rotateZ(90deg);
+        }
+        #cube:after{
+            -webkit-transform: translate3d(-300px,100px,0) rotateY(90deg);
+            -moz-transform: translate3d(-300px,100px,0) rotateY(90deg);
+            -ms-transform: rotateY(90deg);
+            -o-transform: translate3d(-300px,100px,0) rotateY(90deg);
+            transform: translate3d(-300px,100px,0) rotateY(90deg);
+        }
+*/
+        #cube div{
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+            outline:1px solid #777;
+            background: url("images/lg_html5.svg") no-repeat center center, -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,.8) 0%, rgba(119, 119, 119, .8) 90%);
+            background: url("images/lg_html5.svg") no-repeat center center, -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,.8) 0%, rgba(119, 119, 119, .8) 90%);
+            background: url("images/lg_html5.svg") no-repeat center center, -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,.8) 0%, rgba(119, 119, 119, .8) 90%);
+            background: url("images/lg_html5.svg") no-repeat center center, -o-radial-gradient(center, ellipse cover, rgba(255,255,255,.8) 0%, rgba(119, 119, 119, .8) 90%);
+            background: url("images/lg_html5.svg") no-repeat center center, radial-gradient(center, ellipse cover, rgba(255,255,255,.8) 0%, rgba(119, 119, 119, .8) 90%);
+            -webkit-transition:opacity .75s ease-in-out;
+            -moz-transition:opacity .75s ease-in-out;
+            -ms-transition:opacity .75s ease-in-out;
+            -o-transition:opacity .75s ease-in-out;
+            transition:opacity .75s ease-in-out;
+        }
+        #cube div:hover{
+            opacity: .2;
+        }
+        #cube div:nth-of-type(1){
+            -webkit-transform: translate3d(0,0,100px);
+            -moz-transform: translate3d(0,0,100px);
+            -ms-transform: translate3d(0,0,100px);
+            -o-transform: translate3d(0,0,100px);
+            transform: translate3d(0,0,100px);
+        }
+        #cube div:nth-of-type(2){
+            -webkit-transform: translate3d(0,0,-100px) rotateY(180deg);
+            -moz-transform: translate3d(0,0,-100px) rotateY(180deg);
+            -ms-transform: translate3d(0,0,-100px) rotateY(180deg);
+            -o-transform: translate3d(0,0,-100px) rotateY(180deg);
+            transform: translate3d(0,0,-100px) rotateY(180deg);
+        }
+        #cube div:nth-of-type(3){
+            -webkit-transform: translate3d(100px,0,0) rotateY(90deg);
+            -moz-transform: translate3d(100px,0,0) rotateY(90deg);
+            -ms-transform: translate3d(100px,0,0) rotateY(90deg);
+            -o-transform: translate3d(100px,0,0) rotateY(90deg);
+            transform: translate3d(100px,0,0) rotateY(90deg);
+        }
+        #cube div:nth-of-type(4){
+            -webkit-transform: translate3d(-100px,0,0) rotateY(-90deg);
+            -moz-transform: translate3d(-100px,0,0) rotateY(-90deg);
+            -ms-transform: translate3d(-100px,0,0) rotateY(-90deg);
+            -o-transform: translate3d(-100px,0,0) rotateY(-90deg);
+            transform: translate3d(-100px,0,0) rotateY(-90deg);
+        }
+        #cube div:nth-of-type(5){
+            -webkit-transform: translate3d(0,100px,0) rotateX(-90deg);
+            -moz-transform: translate3d(0,100px,0) rotateX(-90deg);
+            -ms-transform: translate3d(0,100px,0) rotateX(-90deg);
+            -o-transform: translate3d(0,100px,0) rotateX(-90deg);
+            transform: translate3d(0,100px,0) rotateX(-90deg);
+        }
+        #cube div:nth-of-type(6){
+            -webkit-transform: translate3d(0,-100px,0) rotateX(90deg);
+            -moz-transform: translate3d(0,-100px,0) rotateX(90deg);
+            -ms-transform: translate3d(0,-100px,0) rotateX(90deg);
+            -o-transform: translate3d(0,-100px,0) rotateX(90deg);
+            transform: translate3d(0,-100px,0) rotateX(90deg);
+        }
+
+        @-webkit-keyframes turnIt {
+            from {
+                -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            to {
+                -webkit-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @-moz-keyframes turnIt {
+            from {
+                -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            to {
+                -moz-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @-ms-keyframes turnIt {
+            from {
+                -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            to {
+                -ms-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @-o-keyframes turnIt {
+            from {
+                -o-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            to {
+                -o-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes turnIt {
+            from {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="cube">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
